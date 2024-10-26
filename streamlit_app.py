@@ -1,14 +1,15 @@
 import altair as alt
 import pandas as pd
 import streamlit as st
+import joblib
 
 # Show the page title and description.
-st.set_page_config(page_title="Movies dataset", page_icon="🎬")
-st.title("🎬 Movies dataset")
+st.set_page_config(page_title="House Price Prediction", page_icon="🏡")
+st.title("🏡 House Price Prediction")
 st.write(
     """
-    This app visualizes data from [The Movie Database (TMDB)](https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata).
-    It shows which movie genre performed best at the box office over the years. Just 
+    This app predicts the price of a house based on its features such as size, 
+    number of bedrooms, and bathrooms using a linear regression model. Just 
     click on the widgets below to explore!
     """
 )
@@ -16,51 +17,39 @@ st.write(
 
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
-@st.cache_data
-def load_data():
-    df = pd.read_csv("data/movies_genres_summary.csv")
-    return df
+@st.cache_resource
+def load_model():
+    model = joblib.load("house_price_model.pkl")
+    return model
 
 
-df = load_data()
+model = load_model()
 
-# Show a multiselect widget with the genres using `st.multiselect`.
-genres = st.multiselect(
-    "Genres",
-    df.genre.unique(),
-    ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"],
+# User inputs for house features
+st.write("Enter the details of the house:")
+
+size = st.number_input("Size (square feet)", min_value=500, max_value=10000, step=100)
+bedrooms = st.number_input("Number of Bedrooms", min_value=1, max_value=10, step=1)
+bathrooms = st.number_input("Number of Bathrooms", min_value=1, max_value=10, step=1)
+
+# Predict button
+if st.button("Predict Price"):
+    # Prepare the input features as a 2D array
+    input_features = np.array([[size, bedrooms, bathrooms]])
+    
+    # Make the prediction using the model
+    predicted_price = model.predict(input_features)[0]
+    
+    # Display the predicted price
+    st.write(f"The predicted price of the house is **${predicted_price:,.2f}**")
+
+# Additional feature: Display information about the model's performance
+st.write("---")
+st.write("### Model Information")
+st.write(
+    """
+    The linear regression model was trained using a dataset of house prices and 
+    various features. It predicts the price based on the size, number of bedrooms, 
+    and number of bathrooms. 
+    """
 )
-
-# Show a slider widget with the years using `st.slider`.
-years = st.slider("Years", 1986, 2006, (2000, 2016))
-
-# Filter the dataframe based on the widget input and reshape it.
-df_filtered = df[(df["genre"].isin(genres)) & (df["year"].between(years[0], years[1]))]
-df_reshaped = df_filtered.pivot_table(
-    index="year", columns="genre", values="gross", aggfunc="sum", fill_value=0
-)
-df_reshaped = df_reshaped.sort_values(by="year", ascending=False)
-
-
-# Display the data as a table using `st.dataframe`.
-st.dataframe(
-    df_reshaped,
-    use_container_width=True,
-    column_config={"year": st.column_config.TextColumn("Year")},
-)
-
-# Display the data as an Altair chart using `st.altair_chart`.
-df_chart = pd.melt(
-    df_reshaped.reset_index(), id_vars="year", var_name="genre", value_name="gross"
-)
-chart = (
-    alt.Chart(df_chart)
-    .mark_line()
-    .encode(
-        x=alt.X("year:N", title="Year"),
-        y=alt.Y("gross:Q", title="Gross earnings ($)"),
-        color="genre:N",
-    )
-    .properties(height=320)
-)
-st.altair_chart(chart, use_container_width=True)
