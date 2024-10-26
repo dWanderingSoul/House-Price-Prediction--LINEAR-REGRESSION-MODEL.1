@@ -2,6 +2,12 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 import joblib
+import numpy as np
+import mlflow
+
+# Set up MLflow tracking
+mlflow.set_tracking_uri("http://127.0.0.1:5000")  # Change this to your MLflow server URI if needed
+mlflow.set_experiment("House_Price_Prediction")
 
 # Show the page title and description.
 st.set_page_config(page_title="House Price Prediction", page_icon="🏡")
@@ -14,7 +20,7 @@ st.write(
     """
 )
 
-
+# Load the model
 # Load the data from a CSV. We're caching this so it doesn't reload every time the app
 # reruns (e.g. if the user interacts with the widgets).
 @st.cache_resource
@@ -37,11 +43,22 @@ if st.button("Predict Price"):
     # Prepare the input features as a 2D array
     input_features = np.array([[size, bedrooms, bathrooms]])
     
+    # Log the inputs
+    with mlflow.start_run():
+        mlflow.log_param("size", size)
+        mlflow.log_param("bedrooms", bedrooms)
+        mlflow.log_param("bathrooms", bathrooms)
+
     # Make the prediction using the model
     predicted_price = model.predict(input_features)[0]
+   
+    # Log the prediction
+    mlflow.log_metric("predicted_price", predicted_price)
     
     # Display the predicted price
     st.write(f"The predicted price of the house is **${predicted_price:,.2f}**")
+
+
 
 # Additional feature: Display information about the model's performance
 st.write("---")
