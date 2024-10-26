@@ -16,7 +16,7 @@ st.write(
     """
     This app predicts the price of a house based on its features such as size, 
     number of bedrooms, and bathrooms using a linear regression model. Just 
-    click on the widgets below to explore!
+    Input in values below to explore!
     """
 )
 
