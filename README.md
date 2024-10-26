@@ -2,7 +2,7 @@
 
 A simple Streamlit app showing house price predictions. 
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://movies-dataset-template.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://filthy-spooky-skeleton-979jxqwj9xpf9vxv-8501.app.github.dev/)
 
 ### How to run it on your own machine
 
