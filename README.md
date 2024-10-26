@@ -1,4 +1,4 @@
-# 🎬 Movies dataset template
+# 🏡 House Price Prediction
 
 A simple Streamlit app showing house price predictions. 
 
