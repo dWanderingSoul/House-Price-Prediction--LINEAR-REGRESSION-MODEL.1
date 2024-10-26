@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/679668298914218833/928f65f529a449fbadeaa8019ff5e3ef/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '679668298914218833'
+lifecycle_stage: active
+run_id: 928f65f529a449fbadeaa8019ff5e3ef
+run_name: sassy-dolphin-269
+run_uuid: 928f65f529a449fbadeaa8019ff5e3ef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729981714216
+status: 1
+tags: []
+user_id: vscode

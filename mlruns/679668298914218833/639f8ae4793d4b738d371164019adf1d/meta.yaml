@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/679668298914218833/639f8ae4793d4b738d371164019adf1d/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '679668298914218833'
+lifecycle_stage: active
+run_id: 639f8ae4793d4b738d371164019adf1d
+run_name: secretive-wasp-637
+run_uuid: 639f8ae4793d4b738d371164019adf1d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729982047977
+status: 1
+tags: []
+user_id: vscode

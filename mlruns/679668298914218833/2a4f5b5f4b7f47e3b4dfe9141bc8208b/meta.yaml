@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/679668298914218833/2a4f5b5f4b7f47e3b4dfe9141bc8208b/artifacts
+end_time: 1729982421732
+entry_point_name: ''
+experiment_id: '679668298914218833'
+lifecycle_stage: active
+run_id: 2a4f5b5f4b7f47e3b4dfe9141bc8208b
+run_name: delicate-crane-997
+run_uuid: 2a4f5b5f4b7f47e3b4dfe9141bc8208b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729982421697
+status: 3
+tags: []
+user_id: vscode

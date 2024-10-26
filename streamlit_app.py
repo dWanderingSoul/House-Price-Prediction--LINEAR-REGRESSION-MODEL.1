@@ -40,15 +40,18 @@ bathrooms = st.number_input("Number of Bathrooms", min_value=1, max_value=10, st
 
 # Predict button
 if st.button("Predict Price"):
-    # Prepare the input features as a 2D array
-    input_features = np.array([[size, bedrooms, bathrooms]])
+    # End any active MLflow run before starting a new one
+    mlflow.end_run()
     
-    # Log the inputs
+    # Start a new MLflow run
     with mlflow.start_run():
         mlflow.log_param("size", size)
         mlflow.log_param("bedrooms", bedrooms)
         mlflow.log_param("bathrooms", bathrooms)
 
+    # Prepare the input features as a 2D array
+    input_features = np.array([[size, bedrooms, bathrooms]])
+    
     # Make the prediction using the model
     predicted_price = model.predict(input_features)[0]
    

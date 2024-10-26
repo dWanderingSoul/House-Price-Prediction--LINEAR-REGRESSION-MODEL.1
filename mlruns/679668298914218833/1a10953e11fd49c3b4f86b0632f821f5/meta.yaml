@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/679668298914218833/1a10953e11fd49c3b4f86b0632f821f5/artifacts
+end_time: 1729982438142
+entry_point_name: ''
+experiment_id: '679668298914218833'
+lifecycle_stage: active
+run_id: 1a10953e11fd49c3b4f86b0632f821f5
+run_name: blushing-bee-656
+run_uuid: 1a10953e11fd49c3b4f86b0632f821f5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729982432200
+status: 3
+tags: []
+user_id: vscode
